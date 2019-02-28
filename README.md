@@ -7,6 +7,7 @@ Some of these APIs and Components are not final and are subject to change!
 
 # Credits 
 Inspired by [angular-toasty](https://github.com/teamfa/angular-toasty)
+Original creator (https://github.com/akserg)
 
 # License
  [MIT](/LICENSE
