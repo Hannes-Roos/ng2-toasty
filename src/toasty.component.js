@@ -126,6 +126,7 @@ var ToastyComponent = /** @class */ (function () {
     };
     ToastyComponent.prototype.click = function (id) {
         var _this = this;
+        console.log(id);
         if (id) {
             this.toasts.forEach(function (value, key) {
                 if (value.id === id) {
@@ -167,7 +168,7 @@ var ToastyComponent = /** @class */ (function () {
     ToastyComponent.decorators = [
         { type: Component, args: [{
                     selector: 'ng2-toasty',
-                    template: "\n    <div id=\"toasty\" [ngClass]=\"[position]\">\n        <ng2-toast *ngFor=\"let toast of toasts\" [toast]=\"toast\" (closeToast)=\"closeToast(toast)\" (clickToastEvent)=\"clickToast(toast)\"></ng2-toast>\n    </div>"
+                    template: "\n    <div id=\"toasty\" [ngClass]=\"[position]\">\n        <ng2-toast *ngFor=\"let toast of toasts\" [toast]=\"toast\" (closeToast)=\"closeToast(toast)\" (clickToast)=\"clickToast(toast)\"></ng2-toast>\n    </div>"
                 },] },
     ];
     /** @nocollapse */

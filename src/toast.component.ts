@@ -14,7 +14,7 @@ import { ToastData } from './toasty.service';
   template: `
         <div class="toast" [ngClass]="[toast.type, toast.theme]">
             <div *ngIf="toast.showClose" class="close-button" (click)="close($event)"></div>
-            <div *ngIf="toast.title || toast.msg" class="toast-text" (click)="click($event)">
+            <div *ngIf="toast.title || toast.msg" class="toast-text" (click)="clickToast($event)">
                 <span *ngIf="toast.title" class="toast-title" [innerHTML]="toast.title | safeHtml"></span>
                 <br *ngIf="toast.title && toast.msg" />
                 <span *ngIf="toast.msg" class="toast-msg" [innerHtml]="toast.msg | safeHtml"></span>
@@ -37,7 +37,7 @@ export class ToastComponent {
   }
 
   // click the toasty
-  click($event: any) {
+  clickToast($event: any) {
     $event.preventDefault();
     this.clickToastEvent.next(this.toast);
   }

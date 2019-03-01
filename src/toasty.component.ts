@@ -14,7 +14,7 @@ import { ToastyService, ToastData, ToastyConfig, ToastyEvent, ToastyEventType } 
   selector: 'ng2-toasty',
   template: `
     <div id="toasty" [ngClass]="[position]">
-        <ng2-toast *ngFor="let toast of toasts" [toast]="toast" (closeToast)="closeToast(toast)" (clickToastEvent)="clickToast(toast)"></ng2-toast>
+        <ng2-toast *ngFor="let toast of toasts" [toast]="toast" (closeToast)="closeToast(toast)" (clickToast)="clickToast(toast)"></ng2-toast>
     </div>`
 })
 export class ToastyComponent implements OnInit {
@@ -137,6 +137,7 @@ export class ToastyComponent implements OnInit {
   }
 
   click(id: number) {
+    console.log(id)
     if (id) {
       this.toasts.forEach((value: any, key: number) => {
         if (value.id === id) {
