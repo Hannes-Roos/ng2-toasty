@@ -133,6 +133,7 @@ var ToastyComponent = /** @class */ (function () {
                     if (value.onClick && isFunction(value.onClick)) {
                         value.onClick.call(_this, value);
                     }
+                    _this.toasts.splice(key, 1);
                 }
             });
         }

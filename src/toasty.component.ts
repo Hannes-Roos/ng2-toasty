@@ -144,6 +144,7 @@ export class ToastyComponent implements OnInit {
           if (value.onClick && isFunction(value.onClick)) {
             value.onClick.call(this, value);
           }
+          this.toasts.splice(key, 1);
         }
       });
     } else {
