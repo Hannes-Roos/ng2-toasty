@@ -5,8 +5,8 @@
 import { Injectable } from '@angular/core';
 import { isString, isNumber, isFunction } from './toasty.utils';
 
-import {Subject} from 'rxjs/Subject';
-import {Observable} from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
 
 /**
  * Options to configure specific Toast
@@ -18,8 +18,10 @@ export class ToastOptions {
   showClose?: boolean;
   theme?: string;
   timeout?: number;
+  link?: string;
   onAdd?: Function;
   onRemove?: Function;
+  onClick?: Function;
 }
 
 /**
@@ -34,6 +36,7 @@ export class ToastData {
   type: string;
   theme: string;
   timeout: number;
+  link: string;
   onAdd: Function;
   onRemove: Function;
   onClick: Function;
@@ -68,11 +71,11 @@ export enum ToastyEventType {
 }
 
 export class ToastyEvent {
-    constructor(public type:ToastyEventType, public value?:any) {}
+  constructor(public type: ToastyEventType, public value?: any) { }
 }
 
-export function toastyServiceFactory(config: ToastyConfig): ToastyService  {
-    return new ToastyService(config);
+export function toastyServiceFactory(config: ToastyConfig): ToastyService {
+  return new ToastyService(config);
 }
 
 /**
@@ -92,7 +95,7 @@ export class ToastyService {
   private eventSource: Subject<ToastyEvent> = new Subject<ToastyEvent>();
   public events: Observable<ToastyEvent> = this.eventSource.asObservable();
 
-  constructor(private config: ToastyConfig) {}
+  constructor(private config: ToastyConfig) { }
 
   /**
    * Get list of toats
@@ -108,7 +111,7 @@ export class ToastyService {
   /**
    * Create Toast of a default type
    */
-  default(options: ToastOptions|string|number): void {
+  default(options: ToastOptions | string | number): void {
     this.add(options, 'default');
   }
 
@@ -116,7 +119,7 @@ export class ToastyService {
    * Create Toast of info type
    * @param  {object} options Individual toasty config overrides
    */
-  info(options: ToastOptions|string|number): void {
+  info(options: ToastOptions | string | number): void {
     this.add(options, 'info');
   }
 
@@ -124,7 +127,7 @@ export class ToastyService {
    * Create Toast of success type
    * @param  {object} options Individual toasty config overrides
    */
-  success(options: ToastOptions|string|number): void {
+  success(options: ToastOptions | string | number): void {
     this.add(options, 'success');
   }
 
@@ -132,7 +135,7 @@ export class ToastyService {
    * Create Toast of wait type
    * @param  {object} options Individual toasty config overrides
    */
-  wait(options: ToastOptions|string|number): void {
+  wait(options: ToastOptions | string | number): void {
     this.add(options, 'wait');
   }
 
@@ -140,7 +143,7 @@ export class ToastyService {
    * Create Toast of error type
    * @param  {object} options Individual toasty config overrides
    */
-  error(options: ToastOptions|string|number): void {
+  error(options: ToastOptions | string | number): void {
     this.add(options, 'error');
   }
 
@@ -148,13 +151,13 @@ export class ToastyService {
    * Create Toast of warning type
    * @param  {object} options Individual toasty config overrides
    */
-  warning(options: ToastOptions|string|number): void {
+  warning(options: ToastOptions | string | number): void {
     this.add(options, 'warning');
   }
 
 
   // Add a new toast item
-  private add(options: ToastOptions|string|number, type: string) {
+  private add(options: ToastOptions | string | number, type: string) {
     let toastyOptions: ToastOptions;
 
     if (isString(options) && options !== '' || isNumber(options)) {
@@ -186,14 +189,15 @@ export class ToastyService {
     }
 
     let toast: ToastData = <ToastData>{
-      id       : this.uniqueCounter,
-      title    : toastyOptions.title,
-      msg      : toastyOptions.msg,
+      id: this.uniqueCounter,
+      title: toastyOptions.title,
+      msg: toastyOptions.msg,
       showClose: showClose,
-      type     : 'toasty-type-' + type,
-      theme    : 'toasty-theme-' + theme,
-      onAdd    : toastyOptions.onAdd && isFunction(toastyOptions.onAdd) ? toastyOptions.onAdd : null,
-      onRemove : toastyOptions.onRemove && isFunction(toastyOptions.onRemove) ? toastyOptions.onRemove : null
+      type: 'toasty-type-' + type,
+      theme: 'toasty-theme-' + theme,
+      onAdd: toastyOptions.onAdd && isFunction(toastyOptions.onAdd) ? toastyOptions.onAdd : null,
+      onRemove: toastyOptions.onRemove && isFunction(toastyOptions.onRemove) ? toastyOptions.onRemove : null,
+      onClick: toastyOptions.onClick && isFunction(toastyOptions.onClick) ? toastyOptions.onClick : null
     };
 
     // If there's a timeout individually or globally, set the toast to timeout
@@ -235,9 +239,9 @@ export class ToastyService {
   }
 
   private emitEvent(event: ToastyEvent) {
-        if (this.eventSource) {
-            // Push up a new event
-            this.eventSource.next(event);
-        }
+    if (this.eventSource) {
+      // Push up a new event
+      this.eventSource.next(event);
     }
+  }
 }

@@ -14,7 +14,7 @@ import { ToastyService, ToastData, ToastyConfig, ToastyEvent, ToastyEventType } 
   selector: 'ng2-toasty',
   template: `
     <div id="toasty" [ngClass]="[position]">
-        <ng2-toast *ngFor="let toast of toasts" [toast]="toast" (closeToast)="closeToast(toast)"></ng2-toast>
+        <ng2-toast *ngFor="let toast of toasts" [toast]="toast" (closeToast)="closeToast(toast)" (clickToastEvent)="clickToast(toast)"></ng2-toast>
     </div>`
 })
 export class ToastyComponent implements OnInit {
@@ -94,6 +94,10 @@ export class ToastyComponent implements OnInit {
     this.clear(toast.id);
   }
 
+  clickToast(toast: ToastData) {
+    this.click(toast.id);
+  }
+
   /**
    * Add new Toast
    */
@@ -129,6 +133,20 @@ export class ToastyComponent implements OnInit {
       });
     } else {
       throw new Error('Please provide id of Toast to close');
+    }
+  }
+
+  click(id: number) {
+    if (id) {
+      this.toasts.forEach((value: any, key: number) => {
+        if (value.id === id) {
+          if (value.onClick && isFunction(value.onClick)) {
+            value.onClick.call(this, value);
+          }
+        }
+      });
+    } else {
+      throw new Error('Please provide id of Toast to click');
     }
   }
 
