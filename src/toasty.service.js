@@ -1,51 +1,37 @@
 // Copyright (C) 2016-2017 Sergey Akopkokhyants
 // This project is licensed under the terms of the MIT license.
 // https://github.com/akserg/ng2-toasty
-import {
-    Injectable
-} from '@angular/core';
-import {
-    isString,
-    isNumber,
-    isFunction
-} from './toasty.utils';
-import {
-    Subject
-} from 'rxjs/Subject';
+import { Injectable } from '@angular/core';
+import { isString, isNumber, isFunction } from './toasty.utils';
+import { Subject } from 'rxjs/Subject';
 /**
  * Options to configure specific Toast
  */
 var ToastOptions = /** @class */ (function () {
-    function ToastOptions() {}
-    ToastOptions.decorators = [{
-        type: Injectable
-    }, ];
+    function ToastOptions() {
+    }
+    ToastOptions.decorators = [
+        { type: Injectable },
+    ];
     /** @nocollapse */
-    ToastOptions.ctorParameters = function () {
-        return [];
-    };
+    ToastOptions.ctorParameters = function () { return []; };
     return ToastOptions;
 }());
-export {
-    ToastOptions
-};
+export { ToastOptions };
 /**
  * Structrure of Toast
  */
 var ToastData = /** @class */ (function () {
-    function ToastData() {}
-    ToastData.decorators = [{
-        type: Injectable
-    }, ];
+    function ToastData() {
+    }
+    ToastData.decorators = [
+        { type: Injectable },
+    ];
     /** @nocollapse */
-    ToastData.ctorParameters = function () {
-        return [];
-    };
+    ToastData.ctorParameters = function () { return []; };
     return ToastData;
 }());
-export {
-    ToastData
-};
+export { ToastData };
 /**
  * Default configuration foa all toats and toasty container
  */
@@ -62,18 +48,14 @@ var ToastyConfig = /** @class */ (function () {
         // What theme to use
         this.theme = 'default';
     }
-    ToastyConfig.decorators = [{
-        type: Injectable
-    }, ];
+    ToastyConfig.decorators = [
+        { type: Injectable },
+    ];
     /** @nocollapse */
-    ToastyConfig.ctorParameters = function () {
-        return [];
-    };
+    ToastyConfig.ctorParameters = function () { return []; };
     return ToastyConfig;
 }());
-export {
-    ToastyConfig
-};
+export { ToastyConfig };
 export var ToastyEventType;
 (function (ToastyEventType) {
     ToastyEventType[ToastyEventType["ADD"] = 0] = "ADD";
@@ -87,9 +69,7 @@ var ToastyEvent = /** @class */ (function () {
     }
     return ToastyEvent;
 }());
-export {
-    ToastyEvent
-};
+export { ToastyEvent };
 export function toastyServiceFactory(config) {
     return new ToastyService(config);
 }
@@ -165,7 +145,8 @@ var ToastyService = /** @class */ (function () {
             toastyOptions = {
                 title: options.toString()
             };
-        } else {
+        }
+        else {
             toastyOptions = options;
         }
         if (!toastyOptions || !toastyOptions.title && !toastyOptions.msg) {
@@ -180,7 +161,8 @@ var ToastyService = /** @class */ (function () {
         var theme;
         if (toastyOptions.theme) {
             theme = ToastyService.THEMES.indexOf(toastyOptions.theme) > -1 ? toastyOptions.theme : this.config.theme;
-        } else {
+        }
+        else {
             theme = this.config.theme;
         }
         var toast = {
@@ -221,9 +203,11 @@ var ToastyService = /** @class */ (function () {
     ToastyService.prototype._checkConfigItem = function (config, options, property) {
         if (options[property] === false) {
             return false;
-        } else if (!options[property]) {
+        }
+        else if (!options[property]) {
             return config[property];
-        } else {
+        }
+        else {
             return true;
         }
     };
@@ -235,17 +219,13 @@ var ToastyService = /** @class */ (function () {
     };
     // Allowed THEMES
     ToastyService.THEMES = ['default', 'material', 'bootstrap'];
-    ToastyService.decorators = [{
-        type: Injectable
-    }, ];
+    ToastyService.decorators = [
+        { type: Injectable },
+    ];
     /** @nocollapse */
-    ToastyService.ctorParameters = function () {
-        return [{
-            type: ToastyConfig,
-        }, ];
-    };
+    ToastyService.ctorParameters = function () { return [
+        { type: ToastyConfig, },
+    ]; };
     return ToastyService;
 }());
-export {
-    ToastyService
-};
+export { ToastyService };

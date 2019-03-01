@@ -8,6 +8,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 var ToastComponent = /** @class */ (function () {
     function ToastComponent() {
         this.closeToastEvent = new EventEmitter();
+        this.clickToastEvent = new EventEmitter();
     }
     /**
      * Event handler invokes when user clicks on close button.
@@ -17,10 +18,15 @@ var ToastComponent = /** @class */ (function () {
         $event.preventDefault();
         this.closeToastEvent.next(this.toast);
     };
+    // click the toasty
+    ToastComponent.prototype.click = function ($event) {
+        $event.preventDefault();
+        this.clickToastEvent.next(this.toast);
+    };
     ToastComponent.decorators = [
         { type: Component, args: [{
                     selector: 'ng2-toast',
-                    template: "\n        <div class=\"toast\" [ngClass]=\"[toast.type, toast.theme]\">\n            <div *ngIf=\"toast.showClose\" class=\"close-button\" (click)=\"close($event)\"></div>\n            <div *ngIf=\"toast.title || toast.msg\" class=\"toast-text\">\n                <span *ngIf=\"toast.title\" class=\"toast-title\" [innerHTML]=\"toast.title | safeHtml\"></span>\n                <br *ngIf=\"toast.title && toast.msg\" />\n                <span *ngIf=\"toast.msg\" class=\"toast-msg\" [innerHtml]=\"toast.msg | safeHtml\"></span>\n            </div>\n        </div>"
+                    template: "\n        <div class=\"toast\" [ngClass]=\"[toast.type, toast.theme]\">\n            <div *ngIf=\"toast.showClose\" class=\"close-button\" (click)=\"close($event)\"></div>\n            <div *ngIf=\"toast.title || toast.msg\" class=\"toast-text\" (click)=\"click($event)\">\n                <span *ngIf=\"toast.title\" class=\"toast-title\" [innerHTML]=\"toast.title | safeHtml\"></span>\n                <br *ngIf=\"toast.title && toast.msg\" />\n                <span *ngIf=\"toast.msg\" class=\"toast-msg\" [innerHtml]=\"toast.msg | safeHtml\"></span>\n            </div>\n        </div>"
                 },] },
     ];
     /** @nocollapse */
@@ -28,6 +34,7 @@ var ToastComponent = /** @class */ (function () {
     ToastComponent.propDecorators = {
         'toast': [{ type: Input },],
         'closeToastEvent': [{ type: Output, args: ['closeToast',] },],
+        'clickToastEvent': [{ type: Output, args: ['clickToast',] },],
     };
     return ToastComponent;
 }());

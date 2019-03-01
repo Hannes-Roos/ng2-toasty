@@ -83,6 +83,9 @@ var ToastyComponent = /** @class */ (function () {
     ToastyComponent.prototype.closeToast = function (toast) {
         this.clear(toast.id);
     };
+    ToastyComponent.prototype.clickToast = function (toast) {
+        this.click(toast.id);
+    };
     /**
      * Add new Toast
      */
@@ -121,6 +124,21 @@ var ToastyComponent = /** @class */ (function () {
             throw new Error('Please provide id of Toast to close');
         }
     };
+    ToastyComponent.prototype.click = function (id) {
+        var _this = this;
+        if (id) {
+            this.toasts.forEach(function (value, key) {
+                if (value.id === id) {
+                    if (value.onClick && isFunction(value.onClick)) {
+                        value.onClick.call(_this, value);
+                    }
+                }
+            });
+        }
+        else {
+            throw new Error('Please provide id of Toast to click');
+        }
+    };
     /**
      * Clear all toasts
      */
@@ -149,7 +167,7 @@ var ToastyComponent = /** @class */ (function () {
     ToastyComponent.decorators = [
         { type: Component, args: [{
                     selector: 'ng2-toasty',
-                    template: "\n    <div id=\"toasty\" [ngClass]=\"[position]\">\n        <ng2-toast *ngFor=\"let toast of toasts\" [toast]=\"toast\" (closeToast)=\"closeToast(toast)\"></ng2-toast>\n    </div>"
+                    template: "\n    <div id=\"toasty\" [ngClass]=\"[position]\">\n        <ng2-toast *ngFor=\"let toast of toasts\" [toast]=\"toast\" (closeToast)=\"closeToast(toast)\" (clickToastEvent)=\"clickToast(toast)\"></ng2-toast>\n    </div>"
                 },] },
     ];
     /** @nocollapse */
