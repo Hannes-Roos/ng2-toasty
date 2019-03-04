@@ -126,7 +126,6 @@ var ToastyComponent = /** @class */ (function () {
     };
     ToastyComponent.prototype.click = function (id) {
         var _this = this;
-        console.log(id);
         if (id) {
             this.toasts.forEach(function (value, key) {
                 if (value.id === id) {

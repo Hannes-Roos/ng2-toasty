@@ -137,7 +137,6 @@ export class ToastyComponent implements OnInit {
   }
 
   click(id: number) {
-    console.log(id)
     if (id) {
       this.toasts.forEach((value: any, key: number) => {
         if (value.id === id) {

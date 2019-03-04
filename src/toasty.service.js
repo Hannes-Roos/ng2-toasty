@@ -169,6 +169,7 @@ var ToastyService = /** @class */ (function () {
             id: this.uniqueCounter,
             title: toastyOptions.title,
             msg: toastyOptions.msg,
+            link: toastyOptions.link,
             showClose: showClose,
             type: 'toasty-type-' + type,
             theme: 'toasty-theme-' + theme,
